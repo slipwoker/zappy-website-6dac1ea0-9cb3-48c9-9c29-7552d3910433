@@ -1,0 +1,47 @@
+# Business — Generative Engine Optimization Map
+
+---
+
+## Pages
+
+### בית
+https://example.com
+אתר יום הולדת אישי מעוצב במיוחד עבור אביטל - חברה מדהימה וצדיקה שיודעת לחגוג אחרת! מתנה דיגיטלית חמה ומצחיקה שתגרום לה לחייך גדול.
+
+### אודות
+https://example.com/about
+גלו את הסיפור מאחורי החגיגה! למה אביטל היא חברה מיוחדת שמגיע לה יום הולדת בלתי נשכח עם הומור חם, אהבה אמיתית ואווירה משפחתית.
+
+### רגעים
+https://example.com/moments
+גלריה מרגשת של רגעים מיוחדים, צחוקים משותפים וזיכרונות יקרים שהופכים את אביטל לחברה הכי טובה שיש. כל תמונה מספרת סיפור של חברות אמיתית.
+
+### צור קשר
+https://example.com/contact
+הצטרפו לחגיגה! שלחו לאביטל ברכה אישית, איחולי יום הולדת מהלב או סתם הודעה מצחיקה שתגרום לה לחייך. כל ברכה נספרת ביום המיוחד הזה.
+
+## Legal & Policy
+
+### Privacy Policy
+https://example.com/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://example.com/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://example.com/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+# Business Context (for LLM understanding)
+
+## About Business
+---
+
+# Additional Resources
+
+- **Sitemap**: https://example.com/sitemap.xml
+- **Robots.txt**: https://example.com/robots.txt

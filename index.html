@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>רעיון מתנה מקורי ומפתיע לחברה הכי טובה — היום הולדת של אביטל</title>
+    <meta name="description" content="אתר יום הולדת אישי מעוצב במיוחד עבור אביטל - חברה מדהימה וצדיקה שיודעת לחגוג אחרת! מתנה דיגיטלית חמה ומצחיקה שתגרום לה לחייך גדול.">
+    <meta name="keywords" content="רעיונות ליום הולדת מקורי לחברה, אתר יום הולדת אישי מעוצב, מתנה דיגיטלית ליום הולדת חברה טובה, חגיגת יום הולדת מיוחדת, מתנה מפתיעה לחברה הכי טובה">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: '6dac1ea0-9cb3-48c9-9c29-7552d3910433',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="רעיון מתנה מקורי ומפתיע לחברה הכי טובה — היום הולדת של אביטל">
+  <meta property="og:description" content="אתר יום הולדת אישי מעוצב במיוחד עבור אביטל - חברה מדהימה וצדיקה שיודעת לחגוג אחרת! מתנה דיגיטלית חמה ומצחיקה שתגרום לה לחייך גדול.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="רעיון מתנה מקורי ומפתיע לחברה הכי טובה — היום הולדת של אביטל">
+  <meta name="twitter:description" content="אתר יום הולדת אישי מעוצב במיוחד עבור אביטל - חברה מדהימה וצדיקה שיודעת לחגוג אחרת! מתנה דיגיטלית חמה ומצחיקה שתגרום לה לחייך גדול.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: #333 !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))), .sub-menu:not(:has(li)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .sub-menu.mobile-expanded { max-height: 500px !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: 44px !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: absolute !important; top: 50% !important; transform: translateY(-50%) !important; right: 0 !important; left: auto !important; z-index: 2 !important; }
+        [dir="rtl"] .mobile-submenu-toggle, html[lang="he"] .mobile-submenu-toggle, html[lang="ar"] .mobile-submenu-toggle { left: 0 !important; right: auto !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      #mic-access-tool-general-button, .mic-access-tool-general-button,
+      #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+      ._access-icon, #mic-access-tool-box, .mic-access-tool-box,
+      #mic-init-access-tool #mic-access-tool-box, div[id*="mic-access-tool-box"], ._access-menu {
+        display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important;
+      }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar" dir="rtl">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+  
+  <button class="phone-header-btn" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+  
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="logo-link">
+        <img src="/assets/general-logo.webp" alt="היום הולדת של אביטל" class="logo" />
+      </a>
+    </div>
+    
+    <ul class="nav-menu" id="navMenu"><li><a href="/about">אודות</a></li><li><a href="/moments">רגעים</a></li></ul>
+    
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">צור קשר</a>
+    </div>
+  </div>
+</nav>
+  
+  <main>
+    <section class="index-hero-section" data-layout-spec="בית-hero" data-hero-type="fullscreen-scrim">
+  <!-- Background Image Layer -->
+  <div class="index-hero-section__bg-wrapper">
+    <img data-hero-bg="true" data-placeholder="index-hero-bg-image" data-context="A warm, tasteful birthday celebration scene with soft daylight streaming through windows, elegant pastel balloons (blush pink, cream, soft gold) floating gently, minimal confetti on a clean white surface, a beautifully set table with a simple cake, fresh flowers in a vase, creating an intimate and sophisticated atmosphere. The composition should have breathing room on the left side (visual left in LTR, which is END in RTL) for text overlay placement. Professional photography style, shallow depth of field, warm color grading, inviting and joyful mood without being overwhelming." width="1920" height="1080" src="/assets/site-index-hero-bg-image.webp" alt="חגיגת יום הולדת חמה ומזמינה לאביטל" class="index-hero-section__bg-image">
+  </div>
+
+  <!-- Scrim Overlay for Text Legibility -->
+  <div class="index-hero-section__scrim" aria-hidden="true"></div>
+
+  <!-- Text Overlay Group -->
+  <div class="index-hero-section__overlay-container">
+    <div class="index-hero-section__overlay-card">
+      <h1 class="index-hero-section__title">מזל טוב אביטל!</h1>
+      <h3 class="index-hero-section__subtitle">מהממת, צדקת, ויודעת לחגוג אחרת</h3>
+      <p class="index-hero-section__description">היום הזה שייך רק לך, אביטל. את לא משתכרת, אבל את בטוח יודעת איך להפוך כל רגע למיוחד. בואי נחגוג את היום המושלם הזה ביחד – בדיוק בסגנון שלך.</p>
+      
+      <div class="index-hero-section__cta-group">
+        <a href="/contact" class="index-hero-section__btn index-hero-section__btn--primary">שלחי ברכה ליום ההולדת</a>
+        <a href="/moments" class="index-hero-section__btn index-hero-section__btn--secondary">צפי ברגעים המיוחדים</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative Doodle Motif (Vector) -->
+  <div class="index-hero-section__doodle-wrapper" aria-hidden="true">
+    <svg data-no-icon-edit="true" aria-hidden="true" class="index-hero-section__doodle-svg" width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- Small stars -->
+      <path d="M20,30 L22,36 L28,36 L23,40 L25,46 L20,42 L15,46 L17,40 L12,36 L18,36 Z" fill="var(--secondary)" opacity="0.7"></path>
+      <path d="M90,15 L92,21 L98,21 L93,25 L95,31 L90,27 L85,31 L87,25 L82,21 L88,21 Z" fill="var(--accent)" opacity="0.6"></path>
+      <path d="M105,45 L106,48 L109,48 L107,50 L108,53 L105,51 L102,53 L103,50 L101,48 L104,48 Z" fill="var(--primary)" opacity="0.5"></path>
+      <!-- Ribbon curve -->
+      <path d="M30,80 Q50,70 70,80 T110,80" stroke="var(--secondary)" stroke-width="2.5" fill="none" opacity="0.8" stroke-linecap="round"></path>
+      <path d="M30,85 Q50,75 70,85 T110,85" stroke="var(--accent)" stroke-width="1.5" fill="none" opacity="0.6" stroke-linecap="round"></path>
+    </svg>
+  </div>
+
+  <!-- Bottom Ribbon Divider -->
+  <div class="index-hero-section__divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Ribbon underline: starts thin at START (right in RTL), curves thicker toward END (left in RTL) -->
+      <defs>
+        <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.3"></stop>
+          <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.9"></stop>
+        </linearGradient>
+        <filter id="ribbonShadow">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="3"></feGaussianBlur>
+          <feOffset dx="0" dy="2" result="offsetblur"></feOffset>
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="0.3"></feFuncA>
+          </feComponentTransfer>
+          <feMerge>
+            <feMergeNode></feMergeNode>
+            <feMergeNode in="SourceGraphic"></feMergeNode>
+          </feMerge>
+        </filter>
+      </defs>
+      <!-- Main ribbon path: fills BOTTOM portion, thin at right (START), thicker at left (END) -->
+      <path d="M0,60 L0,50 Q200,48 400,45 T800,35 Q1000,30 1200,25 L1200,60 Z" fill="var(--bg-light)" filter="url(#ribbonShadow)"></path>
+      <!-- Subtle blush shadow underneath -->
+      <path d="M0,60 L0,55 Q200,53 400,50 T800,40 Q1000,35 1200,30 L1200,60 Z" fill="var(--secondary)" opacity="0.15"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="index-features-section" data-layout-spec="בית-features">
+  <div class="index-features-section__margin-rule" aria-hidden="true"></div>
+  <div class="index-features-section__container">
+    <div class="index-features-section__header">
+      <h2>למה היום הזה מגיע לחגיגה כמו שצריך</h2>
+      <p>אביטל יקרה, זה לא עוד יום רגיל. זה היום שבו נעצור לרגע, נסתכל סביב ונגיד תודה על כך שאת כאן – מדהימה, צודקת, ותמיד יודעת לחגוג בצורה שלך הייחודית. הנה שלושה דברים שהופכים את היום הזה למיוחד במיוחד.</p>
+    </div>
+    <div class="index-features-section__grid">
+      <article class="index-features-section__card">
+        <h3>נוכחות מדהימה</h3>
+        <p>יש משהו באופן שבו את נכנסת לחדר – לא צריך הרבה מילים, פשוט מרגישים שמישהו מיוחד הגיע. את מביאה איתך חום, כנות ואנרגיה שמרימה את כולם.</p>
+      </article>
+      <article class="index-features-section__card">
+        <h3>אנרגיה צודקת</h3>
+        <p>את תמיד יודעת לעשות את הדבר הנכון, גם כשזה לא הכי פשוט. יש בך משהו שמעורר השראה – לא רק בגלל מה שאת אומרת, אלא בגלל מי שאת.</p>
+      </article>
+      <article class="index-features-section__card">
+        <h3>חוגגת אחרת</h3>
+        <p>נכון, את לא משתכרת – אבל מי צריך? את יודעת לחגוג בצורה שהיא לגמרי שלך: אותנטית, מלאת צחוק ורגעים בלתי נשכחים. וזה בדיוק מה שהופך אותך לאגדה.</p>
+      </article>
+    </div>
+    <div class="index-features-section__doodle" aria-hidden="true" data-no-icon-edit="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M14 2L16.326 10.674L25 13L16.326 15.326L14 24L11.674 15.326L3 13L11.674 10.674L14 2Z" fill="#A7F3D0" stroke="#6F6A63" stroke-width="0.8" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </div>
+  <div class="index-features-section__divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 L0,25 Q30,28 60,22 T120,26 Q150,20 180,24 T240,22 Q270,26 300,20 T360,24 Q390,22 420,26 T480,20 Q510,24 540,22 T600,26 Q630,20 660,24 T720,22 Q750,26 780,20 T840,24 Q870,22 900,26 T960,20 Q990,24 1020,22 T1080,26 Q1110,20 1140,24 T1200,22 L1200,60 Z" fill="var(--bg-light)"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="index-quote-section" data-layout-spec="בית-quote">
+  <div class="index-quote-container">
+    <div class="index-quote-main-card">
+      <h2 class="index-quote-headline">"אביטל לא משתכרת, אבל יודעת לחגוג אחרת"</h2>
+      <p class="index-quote-context">כי יש דרכים רבות להיות מדהימה ביום הולדת, ואביטל בחרה את הדרך הכי מיוחדת שלה – עם חיוך, עם חום, ועם הרבה אהבה.</p>
+    </div>
+
+    <div class="index-quote-side-notes">
+      <div class="index-quote-note index-quote-note-start">
+        <h3>החוק הלא רשמי של יום הולדת</h3>
+        <p>כל חגיגה צריכה להיות עם אלכוהול, מוזיקה רועשת, ומישהו שישכח איפה הוא. אבל מי שקבע את זה? בטח לא אביטל.</p>
+      </div>
+
+      <div class="index-quote-note index-quote-note-end">
+        <h3>החוק האמיתי</h3>
+        <p>יום הולדת זה להיות עם האנשים שאוהבים אותך, לצחוק עד שכואב, ולהרגיש שהעולם קצת יותר טוב כשאת בו. זה מה שאביטל עושה כל יום.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="index-quote-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="index-quote-edge-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#A7F3D0;stop-opacity:1"></stop>
+          <stop offset="100%" style="stop-color:#A7F3D0;stop-"></stop>
+        </linearGradient>
+      </defs>
+      <path d="M0,60 L0,0 L1200,40 L1200,60 Z" fill="var(--bg-light)"></path>
+      <path d="M0,0 L1200,40" stroke="url(#index-quote-edge-gradient)" stroke-width="2" fill="var(--bg-light)"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="index-gallery-section" data-layout-spec="בית-gallery">
+  <div class="index-gallery-container">
+    <div class="index-gallery-header">
+      <h2>רגעים ששווה לשמור</h2>
+      <p>כי יש רגעים שמעבר למילים, כאלה שהופכים לזיכרונות שמחממים את הלב. כל חיוך, כל רגע של שמחה משותפת – אלה הם הדברים שבאמת נשארים.</p>
+    </div>
+
+    <div class="index-gallery-grid">
+      <div class="index-gallery-photo-large">
+        <div class="index-gallery-corner-accent"></div>
+        <img data-placeholder="index-gallery-image-1" data-context="Warm, natural candid portrait of a smiling woman named Avital at a birthday celebration, genuine happy expression, soft natural lighting, intimate and personal feel, warm tones, authentic moment captured" width="600" height="700" src="/assets/site-index-gallery-image-1.webp" alt="אביטל בחגיגת יום הולדת">
+      </div>
+
+      <div class="index-gallery-photos-small">
+        <div class="index-gallery-photo-small">
+          <div class="index-gallery-corner-accent"></div>
+          <img data-placeholder="index-gallery-image-2" data-context="Fun group moment at a birthday party, friends laughing together, warm atmosphere, celebration vibes, natural candid photography, joyful energy, people genuinely enjoying themselves" width="400" height="320" src="/assets/site-index-gallery-image-2.webp" alt="רגעי שמחה עם חברים">
+        </div>
+
+        <div class="index-gallery-photo-small">
+          <div class="index-gallery-corner-accent"></div>
+          <img data-placeholder="index-gallery-image-3" data-context="Close-up detail shot of birthday celebration elements: lit candles on a cake, or hands holding sparklers, or a small intimate celebration detail, warm lighting, soft focus background, personal and meaningful" width="400" height="320" src="/assets/site-index-gallery-image-3.webp" alt="פרטים קטנים שעושים את ההבדל">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="index-gallery-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="confettiGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:#2F6BFF;stop-"></stop>
+          <stop offset="50%" style="stop-color:#2F6BFF;stop-opacity:0.08"></stop>
+          <stop offset="100%" style="stop-color:#2F6BFF;stop-opacity:0.15"></stop>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="1200" height="100" fill="url(#confettiGradient)"></rect>
+      <circle cx="120" cy="65" r="3" fill="#2F6BFF" opacity="0.3"></circle>
+      <circle cx="280" cy="75" r="2.5" fill="#FF6B9A" opacity="0.25"></circle>
+      <circle cx="450" cy="70" r="3.5" fill="#A7F3D0" opacity="0.3"></circle>
+      <circle cx="620" cy="80" r="2" fill="#2F6BFF" opacity="0.2"></circle>
+      <circle cx="780" cy="68" r="3" fill="#FF6B9A" opacity="0.28"></circle>
+      <circle cx="950" cy="77" r="2.5" fill="#A7F3D0" opacity="0.25"></circle>
+      <circle cx="1080" cy="72" r="3" fill="#2F6BFF" opacity="0.3"></circle>
+      <circle cx="200" cy="85" r="2" fill="#FF6B9A" opacity="0.2"></circle>
+      <circle cx="380" cy="82" r="2.5" fill="#A7F3D0" opacity="0.22"></circle>
+      <circle cx="550" cy="88" r="2" fill="#2F6BFF" opacity="0.25"></circle>
+      <circle cx="710" cy="90" r="2.5" fill="#FF6B9A" opacity="0.28"></circle>
+      <circle cx="870" cy="85" r="2" fill="#A7F3D0" opacity="0.2"></circle>
+      <circle cx="1020" cy="92" r="2.5" fill="#2F6BFF" opacity="0.25"></circle>
+    </svg>
+  </div>
+</section>
+
+<section class="index-cta-section" data-layout-spec="בית-cta">
+  <div class="index-cta-container">
+    <div class="index-cta-card">
+      <div class="index-cta-highlight-bar"></div>
+      <h2>כתבי את השורה הבאה בסיפור</h2>
+      <p>יש לך משהו לומר לאביטל? הודעה קצרה, איחול, זיכרון משותף או סתם מילה טובה. כל שורה שתכתבי תהפוך לחלק מהסיפור המיוחד הזה.</p>
+      <a href="/contact" class="index-cta-btn">שלחי הודעה</a>
+    </div>
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer" dir="rtl">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-column footer-about">
+        <img src="/assets/general-logo.webp" alt="היום הולדת של אביטל" class="logo" />
+        <p class="footer-description">חוגגים את היום המיוחד של אביטל עם אהבה ושמחה</p>
+      </div>
+      
+      <div class="footer-column footer-links">
+        <h3 class="footer-heading">קישורים מהירים</h3>
+        <ul class="footer-nav">
+          <li><a href="/about">אודות</a></li>
+          <li><a href="/moments">רגעים</a></li>
+          <li><a href="/contact">צור קשר</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column footer-contact">
+        <h3 class="footer-heading">יצירת קשר</h3>
+        <ul class="contact-list">
+          <li><i class="fas fa-envelope"></i> <a href="mailto:[business_email]">[business_email]</a></li>
+          <li><i class="fas fa-phone"></i> <a href="tel:[business_phone]">[business_phone]</a></li>
+          <li><a href="/"><i class="fas fa-map-marker-alt"></i> <span>[business_address]</span></a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column footer-social">
+        <h3 class="footer-heading">עקבו אחרינו</h3>
+        <div class="social-links">
+          <a href="[facebook_handle]" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="[instagram_handle]" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="[whatsapp_handle]" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="copyright">
+          <p>© 2026 היום הולדת של אביטל. All rights reserved.</p>
+        </div>
+        <div class="footer-legal">
+          <a href="/privacy">Privacy Policy</a>
+          <span class="separator">|</span>
+          <a href="/terms">Terms &amp; Conditions</a>
+          <span class="separator">|</span>
+          <a href="/accessibility">Accessibility</a>
+          <span class="separator">|</span>
+          <a href="https://zappy5.com" target="_blank" class="zappy-attribution">Generated by Zappy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+</body>
+</html>
